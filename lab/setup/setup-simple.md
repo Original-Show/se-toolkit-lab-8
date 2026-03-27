@@ -50,7 +50,7 @@ We refer to your fork as `fork` and to the original repo as `upstream`.
 
 #### 1.1.6. Sync your fork with upstream
 
-1. [Sync your fork](../../wiki/github.md#sync-a-fork) so you have the latest changes from the course repository.
+1. [Sync your fork](../../wiki/git-workflow.md#pull-changes-from-the-branch-main-on-the-remote-upstream) so you have the latest changes from the course repository.
 
    Do this **before cloning** to the VM, and again whenever the instructors push updates.
 

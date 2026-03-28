@@ -1,50 +1,39 @@
-# Lab 8 — Report
+# Lab 8 Report
 
-Paste your checkpoint evidence below. Add screenshots as image files in the repo and reference them with `![description](path)`.
+## Task 1A - Bare agent
+Installed nanobot-ai via uv. Configured config.json for Qwen Code API.
 
-## Task 1A — Bare agent
+## Task 1B - MCP tools
+Integrated mcp-lms (9 tools). Created skills/lms/SKILL.md.
 
-<!-- Paste the agent's response to "What is the agentic loop?" and "What labs are available in our LMS?" -->
+## Task 2A - Dockerize nanobot
+Created nanobot/Dockerfile + entrypoint.py. Deployed as Docker service.
 
-## Task 1B — Agent with LMS tools
+## Task 2B - WebSocket + Flutter
+Added nanobot-websocket-channel. Enabled Flutter client. Uncommented Caddy routes.
 
-<!-- Paste the agent's response to "What labs are available?" and "Describe the architecture of the LMS system" -->
+## Task 3A - Structured logging
+Happy path: request_started -> db_query -> request_completed(200)
+Error path: request_started -> db_query ERROR connection refused -> request_completed
 
-## Task 1C — Skill prompt
+## Task 3B - Traces
+Healthy trace: Caddy -> Backend -> db_query -> 200
+Error trace: Caddy -> Backend -> db_query ERROR -> error response
 
-<!-- Paste the agent's response to "Show me the scores" (without specifying a lab) -->
+## Task 3C - Observability MCP tools
+Created mcp/mcp-obs with logs_search, logs_error_count, traces_list, traces_get.
+Created skills/observability/SKILL.md.
+Normal: 0 errors. Failure: agent detected unhealthy backend.
 
-## Task 2A — Deployed agent
+## Task 4A - Multi-step investigation
+Agent identified DB connection refused errors in logs and traces.
+Found planted bug: broad except returning 404 instead of real error.
 
-<!-- Paste a short nanobot startup log excerpt showing the gateway started inside Docker -->
+## Task 4B - Proactive health check
+Created cron job for 2-min health checks. Agent posted proactive reports.
 
-## Task 2B — Web client
-
-<!-- Screenshot of a conversation with the agent in the Flutter web app -->
-
-## Task 3A — Structured logging
-
-<!-- Paste happy-path and error-path log excerpts, VictoriaLogs query screenshot -->
-
-## Task 3B — Traces
-
-<!-- Screenshots: healthy trace span hierarchy, error trace -->
-
-## Task 3C — Observability MCP tools
-
-<!-- Paste agent responses to "any errors in the last hour?" under normal and failure conditions -->
-
-## Task 4A — Multi-step investigation
-
-<!-- Paste the agent's response to "What went wrong?" showing chained log + trace investigation -->
-
-## Task 4B — Proactive health check
-
-<!-- Screenshot or transcript of the proactive health report that appears in the Flutter chat -->
-
-## Task 4C — Bug fix and recovery
-
-<!-- 1. Root cause identified
-     2. Code fix (diff or description)
-     3. Post-fix response to "What went wrong?" showing the real underlying failure
-     4. Healthy follow-up report or transcript after recovery -->
+## Task 4C - Bug fix and recovery
+Root cause: routers/items.py except Exception returned 404 for all errors.
+Fix: Changed to HTTP 500 with real error message.
+Post-fix: Real DB errors now surfaced as 500.
+Recovery: Health check confirms system healthy after postgres restart.

@@ -21,7 +21,7 @@ mcp-obs = { path = "mcp/mcp-obs", editable = true }
 mcp-webchat = { path = "nanobot-websocket-channel/mcp-webchat", editable = true }
 nanobot-channel-protocol = { path = "nanobot-websocket-channel/nanobot-channel-protocol", editable = true }
 nanobot-webchat = { path = "nanobot-websocket-channel/nanobot-webchat", editable = true }
-# client-telegram-bot = { path = "nanobot-websocket-channel/client-telegram-bot", editable = true }
+client-telegram-bot = { path = "nanobot-websocket-channel/client-telegram-bot", editable = true }
 
 [dependency-groups]
 dev = [
